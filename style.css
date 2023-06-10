@@ -39,15 +39,21 @@ button{
     height: 50px;
     background-color: white;
     border-radius: 3px;
-    border: 1px solid #c4c4c4;
+    border: 3px solid #000000;
     font-size: 2.5rem;
     color: #333;
+    transition: 0.3s ease;
+    border-radius: 70px 70px 70px 70px;
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 button:hover{
     cursor: pointer;
     background-color: #555;
     color: white;
+    box-shadow: inset 0px 0px 16px -1px rgba(0,0,0,1);
+
 }
 
 .operator{
@@ -56,21 +62,26 @@ button:hover{
 }
 
 .all-clear{
-    background-color: #c40107;
+    background-color: #f1030b;
     color: white;
-    border-color: #fd0505;
+    border-color: #f1030b;
+    transition: 0.3s ease;
 }
 
 .all-clear:hover{
-    background-color: #fd0505;
+    background-color: #a10000;
 }
 
 .equal-sign{
     background-color: blue;
     color: white;
-    border-color: #2600ff;
+    border-color: #3512ff;
     height: 100%;
     grid-area: 2 / 4 / 6 / 5;
+}
+
+.equal-sign:hover{
+    background-color: #17038a;
 }
 
 .calculator-keys{
