@@ -2,6 +2,9 @@ const display = document.querySelector(".calculator-input");
 const keys = document.querySelector(".calculator-keys");
 
 let displayValue = '0';
+let firstValue = null;
+let operator = null;
+let waitingForSecondValue = false;
 
 updateDisplay();
 
@@ -15,8 +18,9 @@ keys.addEventListener('click', function(e){
     if(!element.matches('button')) return;
 
 
-    if(element.classList.value.includes("operator")){
-        console.log('operator', element.value);
+    if(element.classList.value.includes('operator')){
+        handleOperator(element.value)
+        updateDisplay()
         return;
     }
 
@@ -38,15 +42,56 @@ keys.addEventListener('click', function(e){
 });
 
 function inputNumber(num){
-    displayValue = displayValue === '0' ? num: displayValue + num
+    if(waitingForSecondValue){
+        displayValue = num;
+        waitingForSecondValue = false;
+    }else{
+        displayValue = displayValue === '0' ? num: displayValue + num
+    }
 }
 
 function inputDecimal(dot){
     if(!displayValue.includes('.')){
-    displayValue += ".";
+    displayValue += '.';
     }
 }
 
 function clear(clear){
     displayValue = '0'
+}
+
+function handleOperator(nextOperator){
+    const value = parseFloat(displayValue);
+
+    if(operator && waitingForSecondValue){
+        const value = parseFloat(displayValue);
+        return;
+    }
+
+    if(firstValue == null){
+        firstValue = value;
+    }else if(operator){
+        const result = calaculate(firstValue, value, operator);
+
+        displayValue = `${parseFloat(result.toFixed(7))}`
+        firstValue = result;
+    }
+
+    waitingForSecondValue = true;
+    operator = nextOperator;
+}
+
+function calaculate(first, second, operator){
+    if(operator === '+'){
+        return first + second;
+    }else if(operator === '-'){
+        return first - second;
+    }else if(operator === '*'){
+        return first * second;
+    }else if(operator === '/'){
+        return first / second;
+    }
+
+    return second
+
 }
